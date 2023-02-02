@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:winter_skillup_hackathon/mywalk_list.dart';
 import 'package:winter_skillup_hackathon/recommend_list.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -106,9 +107,21 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                           },
                         ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+                          onPressed: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context)=> const MyWalkPage()),
+                            );
+                          },
+                          child: Text("지도 보기",
+                            style: TextStyle(color: Colors.black),),
+                        ),
                       ],
                     ),
                   ),
+
                 ],
               ),
             ),
