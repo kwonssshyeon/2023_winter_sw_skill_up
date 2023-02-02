@@ -27,7 +27,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +59,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -91,7 +91,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +123,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,7 +155,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -187,7 +187,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,7 +219,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -251,7 +251,7 @@ class _RecommendListPageState extends State<RecommendListPage> {
               color: Color(0xffF5F5F5),
               child: Column(
                 children: [
-                  Expanded(child: Image.asset("images/map.png")),
+                  Expanded(child: Image.asset("images/map_.png")),
                   Card(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
