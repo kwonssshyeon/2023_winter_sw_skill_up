@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:winter_skillup_hackathon/recommend_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -131,25 +132,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                   ),
+                  //버튼
                   Padding(
                     padding: const EdgeInsets.all(30.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                       onPressed: (){
-                        //2번 페이지로 이동
+                        final result =  Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context)=> const RecommendListPage()),
+                        );
                       },
                       child: Text("추천경로 보기",
                         style: TextStyle(color: Colors.black),),
                     ),
                   ),
-
                 ],
               ),
             ),
           ),
         ],
       ),
-
     );
   }
 }
