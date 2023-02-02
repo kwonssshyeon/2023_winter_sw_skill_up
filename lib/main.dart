@@ -27,7 +27,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-
+        centerTitle: true,
+        backgroundColor: Color(0xffD0FB8B),
+        title: Image.asset('images/logo.png',width: 80,height: 80,),
       ),
       body: Center(
 
