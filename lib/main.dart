@@ -3,6 +3,8 @@ import 'package:winter_skillup_hackathon/mywalk_list.dart';
 import 'package:winter_skillup_hackathon/recommend_list.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
+import 'map.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -58,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(height: 50),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28.0),
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Card(
               color: Color(0xffD0FB8B),
               child: Row(
@@ -66,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   //설명 텍스트
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 30),
+                    padding: const EdgeInsets.only(left: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -78,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   //반경시간 드롭다운
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 30),
+                    padding: const EdgeInsets.only(top: 30,bottom: 30,right: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -112,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           onPressed: (){
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context)=> const MyWalkPage()),
+                              MaterialPageRoute(builder: (context)=> MapSample()),
                             );
                           },
                           child: Text("지도 보기",
@@ -128,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SizedBox(height: 35),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28.0),
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
             child: Card(
               color: Color(0xffD0FB8B),
               child: Row(
@@ -136,7 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: [
                   //설명텍스트
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30,horizontal: 30),
+                    padding: const EdgeInsets.only(left: 30),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -148,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   //버튼
                   Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.only(top: 30.0,bottom: 30,right: 15),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                       onPressed: (){

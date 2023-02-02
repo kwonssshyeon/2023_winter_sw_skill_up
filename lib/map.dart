@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:winter_skillup_hackathon/mywalk_list.dart';
 
 class MapSample extends StatefulWidget {
   @override
@@ -34,12 +35,31 @@ class MapSampleState extends State<MapSample> {
         },
       ),
 
+
       // floatingActionButton을 누르게 되면 _goToTheLake 실행된다.
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _goToTheLake,
-        label: Text('To the lake!'),
-        icon: Icon(Icons.directions_boat),
+      floatingActionButton: Row(
+        children: [
+          FloatingActionButton.extended(
+            onPressed: _goToTheLake,
+            label: Text('To the lake!'),
+            icon: Icon(Icons.directions_boat),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context)=> MyWalkPage()),
+              );
+            },
+            child: Text("마이페이지",
+              style: TextStyle(color: Colors.black),),
+          ),
+        ],
       ),
+
+
+
     );
   }
 
