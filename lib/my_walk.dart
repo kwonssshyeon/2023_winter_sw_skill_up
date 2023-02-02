@@ -22,7 +22,7 @@ class _MyWalkPageState extends State<MyWalkPage> {
                 Card(
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: ListTile(
-                    leading: Image.asset('images/map.png'),
+                    leading: Image.asset('images/map_.png'),
                     title: Text('2022. 02. 02', style: TextStyle(
                         fontSize: 15, fontWeight: FontWeight.bold),),
                     subtitle: Text('32m 15s / 2.1km',
