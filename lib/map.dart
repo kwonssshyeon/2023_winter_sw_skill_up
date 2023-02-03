@@ -1,100 +1,107 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:winter_skillup_hackathon/mywalk_list.dart';
-import 'package:custom_timer/custom_timer.dart';
+import 'package:location/location.dart';
 
 class MapSample extends StatefulWidget {
+  const MapSample({Key? key}) : super(key: key);
+
   @override
-  State<MapSample> createState() => MapSampleState();
+  _MapSample createState() => _MapSample();
 }
 
-
-class MapSampleState extends State<MapSample> with SingleTickerProviderStateMixin {
-  late CustomTimerController __controller = CustomTimerController(
-      vsync: this,
-      begin: Duration(seconds: 0),
-      end: Duration(hours: 12),
-      initialState: CustomTimerState.reset,
-      interval: CustomTimerInterval.milliseconds
-  );
-
-  @override
-  void dispose() {
-    __controller.dispose();
-    super.dispose();
-  }
-
+class _MapSample extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
-
-  // 초기 카메라 위치
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
+  // on below line we have specified camera position
+  static final CameraPosition _kGoogle = const CameraPosition(
+    target: LatLng(35.888062217703045, 128.61150116523726),
+    zoom: 10,
   );
 
-  // 호수 위치
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  // on below line we have created the list of markers
+  final List<Marker> _markers = <Marker>[
+    Marker(
+        markerId: MarkerId('1'),
+        position: LatLng(35.888062217703045, 128.61150116523726),
+        infoWindow: InfoWindow(
+          title: 'My Position',
+        )
+    ),
+  ];
+
+  // created method for getting user current location
+  Future<Position> getUserCurrentLocation() async {
+    await Geolocator.requestPermission().then((value){
+    }).onError((error, stackTrace) async {
+      await Geolocator.requestPermission();
+      print("ERROR"+error.toString());
+    });
+    return await Geolocator.getCurrentPosition();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            GoogleMap(
-              mapType: MapType.hybrid,
-              initialCameraPosition: _kGooglePlex, // 초기 카메라 위치
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-            ),
-            Container(
-              child: Column(
-                children: [
-                  CustomTimer(
-                      controller: __controller,
-                      builder: (state, remaining) {
-                        // Build the widget you want!
-                        return Column(
-                          children: [
-                            Text("${state.name}", style: TextStyle(fontSize: 24.0)),
-                            Text(
-                                "${remaining.minutes}:${remaining.seconds}",
-                                style: TextStyle(fontSize: 24.0))
-                          ]
-                        );
-                      }),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end ,
-                    children: [
-                      ElevatedButton(onPressed: () => __controller.start(), child: Text('시작')),
-                      SizedBox(width: 15,),
-                      ElevatedButton(onPressed: () => __controller.pause(), child: Text('멈춤')),
-                      SizedBox(width: 15,),
-                      ElevatedButton(onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context)=> MyWalkPage()));},
-                          child: Text('종료')),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xffD0FB8B),
+        // on below line we have given title of app
+        title: Text("지도"),
+      ),
+      body: Container(
+        child: SafeArea(
+          // on below line creating google maps
+          child: GoogleMap(
+            // on below line setting camera position
+            initialCameraPosition: _kGoogle,
+            // on below line we are setting markers on the map
+            markers: Set<Marker>.of(_markers),
+            // on below line specifying map type.
+            mapType: MapType.normal,
+            // on below line setting user location enabled.
+            myLocationEnabled: true,
+            // on below line setting compass enabled.
+            compassEnabled: true,
+            // on below line specifying controller on map complete.
+            onMapCreated: (GoogleMapController controller){
+              _controller.complete(controller);
+            },
+          ),
         ),
+      ),
+      // on pressing floating action button the camera will take to user current location
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async{
+          getUserCurrentLocation().then((value) async {
+            print(value.latitude.toString() +" "+value.longitude.toString());
+
+            // marker added for current users location
+            _markers.add(
+                Marker(
+                  markerId: MarkerId("2"),
+                  position: LatLng(value.latitude, value.longitude),
+                  infoWindow: InfoWindow(
+                    title: 'My Current Location',
+                  ),
+                )
+            );
+
+            // specified current users location
+            CameraPosition cameraPosition = new CameraPosition(
+              target: LatLng(value.latitude, value.longitude),
+              zoom: 14,
+            );
+
+            final GoogleMapController controller = await _controller.future;
+            controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+            setState(() {
+            });
+          });
+        },
+        child: Icon(Icons.local_activity),
       ),
     );
   }
-
-  Future<void> _goToTheLake() async {
-    final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  }
 }
+
