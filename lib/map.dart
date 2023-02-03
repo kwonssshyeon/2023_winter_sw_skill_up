@@ -2,13 +2,29 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:winter_skillup_hackathon/mywalk_list.dart';
+import 'package:custom_timer/custom_timer.dart';
 
 class MapSample extends StatefulWidget {
   @override
   State<MapSample> createState() => MapSampleState();
 }
 
-class MapSampleState extends State<MapSample> {
+
+class MapSampleState extends State<MapSample> with SingleTickerProviderStateMixin {
+  late CustomTimerController __controller = CustomTimerController(
+      vsync: this,
+      begin: Duration(seconds: 0),
+      end: Duration(hours: 12),
+      initialState: CustomTimerState.reset,
+      interval: CustomTimerInterval.milliseconds
+  );
+
+  @override
+  void dispose() {
+    __controller.dispose();
+    super.dispose();
+  }
+
   Completer<GoogleMapController> _controller = Completer();
 
   // 초기 카메라 위치
@@ -27,39 +43,53 @@ class MapSampleState extends State<MapSample> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: GoogleMap(
-        mapType: MapType.hybrid,
-        initialCameraPosition: _kGooglePlex, // 초기 카메라 위치
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
-        },
+      body: SafeArea(
+        child: Stack(
+          children: [
+            GoogleMap(
+              mapType: MapType.hybrid,
+              initialCameraPosition: _kGooglePlex, // 초기 카메라 위치
+              onMapCreated: (GoogleMapController controller) {
+                _controller.complete(controller);
+              },
+            ),
+            Container(
+              child: Column(
+                children: [
+                  CustomTimer(
+                      controller: __controller,
+                      builder: (state, remaining) {
+                        // Build the widget you want!
+                        return Column(
+                          children: [
+                            Text("${state.name}", style: TextStyle(fontSize: 24.0)),
+                            Text(
+                                "${remaining.minutes}:${remaining.seconds}",
+                                style: TextStyle(fontSize: 24.0))
+                          ]
+                        );
+                      }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end ,
+                    children: [
+                      ElevatedButton(onPressed: () => __controller.start(), child: Text('시작')),
+                      SizedBox(width: 15,),
+                      ElevatedButton(onPressed: () => __controller.pause(), child: Text('멈춤')),
+                      SizedBox(width: 15,),
+                      ElevatedButton(onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context)=> MyWalkPage()));},
+                          child: Text('종료')),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-
-
-      // floatingActionButton을 누르게 되면 _goToTheLake 실행된다.
-      floatingActionButton: Row(
-        children: [
-          FloatingActionButton.extended(
-            onPressed: _goToTheLake,
-            label: Text('To the lake!'),
-            icon: Icon(Icons.directions_boat),
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
-            onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context)=> MyWalkPage()),
-              );
-            },
-            child: Text("마이페이지",
-              style: TextStyle(color: Colors.black),),
-          ),
-        ],
-      ),
-
-
-
     );
   }
 

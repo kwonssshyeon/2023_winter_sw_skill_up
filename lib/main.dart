@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:winter_skillup_hackathon/mywalk_list.dart';
 import 'package:winter_skillup_hackathon/recommend_list.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-
 import 'map.dart';
 
 void main() {
