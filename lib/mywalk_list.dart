@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main.dart';
+
 class MyWalkPage extends StatefulWidget {
   const MyWalkPage({Key? key}) : super(key: key);
 
@@ -42,8 +44,10 @@ class _MyWalkPageState extends State<MyWalkPage> {
                                   Navigator.of(context).pop();
                                 }, child: Text('취소', style: TextStyle(color: Colors.green[500])),),
                                 OutlinedButton(onPressed: () {
-                                  Navigator.of(context).pop();
-
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHomePage()));
                                 }, child: Text('추천 등록', style: TextStyle(color: Colors.green[500])),),
                               ],
                             );
