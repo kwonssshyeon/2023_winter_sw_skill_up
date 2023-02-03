@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:winter_skillup_hackathon/mywalk_list.dart';
+import 'package:logger/logger.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class RecommendMap extends StatefulWidget {
   @override
@@ -11,34 +12,72 @@ class RecommendMap extends StatefulWidget {
 class RecommendMapState extends State<RecommendMap> {
   Completer<GoogleMapController> _controller = Completer();
 
-  // 초기 카메라 위치
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+
+  LatLng startLocation = LatLng(37.33500926, -122.03272188) ;
+  LatLng endLocation = LatLng(37.33429383, -122.06600055);
+
+  List<LatLng> polylineCoordinates = [];
+
+  String googleAPiKey = "AIzaSyChotVEN4pHvjzXVK3hJIFJtAXJRso2KDg";
+
+  void getPolyPoints() async{
+    PolylinePoints polylinePoints = PolylinePoints();
+
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      googleAPiKey,
+      PointLatLng(startLocation.latitude, startLocation.longitude),
+      PointLatLng(endLocation.latitude, endLocation.longitude),
+    );
+
+    Logger(printer: SimplePrinter(colors: true)).v("결과값", result.points);
+
+    if(result.points.isNotEmpty){
+      result.points.forEach(
+            (PointLatLng point) => polylineCoordinates.add(
+          LatLng(point.latitude, point.longitude),
+        ),
+      );
+      Logger(printer: SimplePrinter(colors: true)).v('폴리라인');
+      setState(() {});
+    }
+  }
+
+
+  @override
+  void initState() {
+    getPolyPoints();
+    Logger(printer: SimplePrinter(colors: true)).v('빌드성공');
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       body: GoogleMap(
-        mapType: MapType.normal,
-        initialCameraPosition: _kGooglePlex, // 초기 카메라 위치
-        onMapCreated: (GoogleMapController controller) {
-          _controller.complete(controller);
+        initialCameraPosition: CameraPosition(
+            target: startLocation,
+            zoom: 13.5
+        ),
+        polylines: {
+          Polyline(
+              polylineId: PolylineId("route"),
+              points: polylineCoordinates,
+              color: Colors.black),
         },
+        markers: {
+          Marker(
+            markerId: MarkerId("start"),
+            position: startLocation,
+          ),
+          Marker(
+            markerId: MarkerId("end"),
+            position: endLocation,
+          )
+        },
+        zoomGesturesEnabled: true,
+        mapType: MapType.normal,
       ),
-
-
-
-      // floatingActionButton을 누르게 되면 _goToTheLake 실행된다.
-      floatingActionButton: Row(
-        children: [
-
-        ],
-      ),
-
-
-
     );
   }
 

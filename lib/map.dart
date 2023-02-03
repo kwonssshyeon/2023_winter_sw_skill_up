@@ -7,7 +7,8 @@ import 'package:location/location.dart';
 import 'package:custom_timer/custom_timer.dart';
 
 class MapSample extends StatefulWidget {
-  const MapSample({Key? key}) : super(key: key);
+  final int radiusSize;
+  MapSample(@required this.radiusSize);
 
   @override
   _MapSample createState() => _MapSample();
@@ -23,18 +24,17 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
   );
 
   Completer<GoogleMapController> _controller = Completer();
-
   // on below line we have specified camera position
   static final CameraPosition _kGoogle = const CameraPosition(
-    target: LatLng(20.42796133580664, 80.885749655962),
-    zoom: 14.4746,
+    target: LatLng(35.888062217703045, 128.61150116523726),
+    zoom: 10,
   );
 
   // on below line we have created the list of markers
   final List<Marker> _markers = <Marker>[
     Marker(
         markerId: MarkerId('1'),
-        position: LatLng(20.42796133580664, 75.885749655962),
+        position: LatLng(35.888062217703045, 128.61150116523726),
         infoWindow: InfoWindow(
           title: 'My Position',
         )
@@ -43,10 +43,10 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
 
   // created method for getting user current location
   Future<Position> getUserCurrentLocation() async {
-    await Geolocator.requestPermission().then((value) {}).onError((error,
-        stackTrace) async {
+    await Geolocator.requestPermission().then((value){
+    }).onError((error, stackTrace) async {
       await Geolocator.requestPermission();
-      print("ERROR" + error.toString());
+      print("ERROR"+error.toString());
     });
     return await Geolocator.getCurrentPosition();
   }
@@ -59,11 +59,13 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+
+    int radiusSize = widget.radiusSize;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0F9D58),
+        backgroundColor: Color(0xffD0FB8B),
         // on below line we have given title of app
-        title: Text("GFG"),
+        title: Text("지도"),
       ),
       body: Container(
         child: SafeArea(
@@ -132,6 +134,7 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
             )
         ),
       ),
+      // on pressing floating action button the camera will take to user current location
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
           getUserCurrentLocation().then((value) async {
@@ -140,7 +143,7 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
             // marker added for current users location
             _markers.add(
                 Marker(
-                  markerId: MarkerId("2"),
+                  markerId: MarkerId("1"),
                   position: LatLng(value.latitude, value.longitude),
                   infoWindow: InfoWindow(
                     title: 'My Current Location',
@@ -148,10 +151,20 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
                 )
             );
 
+            circles: {
+              Circle(
+                circleId: CircleId("1"),
+                center: LatLng(value.latitude, value.longitude),
+                radius: (radiusSize*10000).toDouble(),
+                strokeWidth: 1,
+                fillColor: Color(0xff006491).withOpacity(0.2),
+              );
+            };
+
             // specified current users location
             CameraPosition cameraPosition = new CameraPosition(
               target: LatLng(value.latitude, value.longitude),
-              zoom: 14,
+              zoom: 10,
             );
 
             final GoogleMapController controller = await _controller.future;
@@ -165,4 +178,4 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
     );
   }
 }
-// on pressing floating action button the camera will take to user current location
+
