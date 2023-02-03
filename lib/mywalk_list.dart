@@ -43,6 +43,7 @@ class _MyWalkPageState extends State<MyWalkPage> {
                                 }, child: Text('취소', style: TextStyle(color: Colors.green[500])),),
                                 OutlinedButton(onPressed: () {
                                   Navigator.of(context).pop();
+
                                 }, child: Text('추천 등록', style: TextStyle(color: Colors.green[500])),),
                               ],
                             );

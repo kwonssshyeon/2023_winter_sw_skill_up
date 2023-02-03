@@ -90,9 +90,9 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
                   ),
                   Container(
                     decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color:Color(0xffD0FB8B)),
-                    margin: EdgeInsets.fromLTRB(100, 25, 100, 0),
-                    height: 100,
-                    width: 300,
+                    margin: EdgeInsets.fromLTRB(50, 25, 50, 0),
+                    height: 120,
+                    width: 500,
                     child: Column(
                       children: [
                         CustomTimer(
