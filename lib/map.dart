@@ -65,7 +65,7 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
       appBar: AppBar(
         backgroundColor: Color(0xffD0FB8B),
         // on below line we have given title of app
-        title: Text("지도"),
+        title: Text("지도", style: TextStyle(color: Colors.black),),
       ),
       body: Container(
         child: SafeArea(
@@ -89,6 +89,10 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
                     },
                   ),
                   Container(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), color:Color(0xffD0FB8B)),
+                    margin: EdgeInsets.fromLTRB(100, 25, 100, 0),
+                    height: 100,
+                    width: 300,
                     child: Column(
                       children: [
                         CustomTimer(
@@ -98,7 +102,7 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
                               return Column(
                                   children: [
                                     Text("${state.name}", style: TextStyle(
-                                        fontSize: 24.0)),
+                                        fontSize: 24.0, fontWeight: FontWeight.bold)),
                                     Text(
                                         "${remaining.minutes}:${remaining
                                             .seconds}",
@@ -111,11 +115,11 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             ElevatedButton(
-                                onPressed: () => __controller.start(),
-                                child: Text('시작')),
+                                onPressed: () => __controller.start(), style: ElevatedButton.styleFrom(backgroundColor: Colors.green[500]),
+                                child: Text('시작'),),
                             SizedBox(width: 15,),
                             ElevatedButton(
-                                onPressed: () => __controller.pause(),
+                                onPressed: () => __controller.pause(), style: ElevatedButton.styleFrom(backgroundColor: Colors.green[500]),
                                 child: Text('멈춤')),
                             SizedBox(width: 15,),
                             ElevatedButton(onPressed: () {
@@ -123,7 +127,7 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyWalkPage()));
-                            },
+                            }, style: ElevatedButton.styleFrom(backgroundColor: Colors.green[500]),
                                 child: Text('종료')),
                           ],
                         )
@@ -155,7 +159,7 @@ class _MapSample extends State<MapSample> with SingleTickerProviderStateMixin {
               Circle(
                 circleId: CircleId("1"),
                 center: LatLng(value.latitude, value.longitude),
-                radius: (radiusSize*10000).toDouble(),
+                radius: (radiusSize*100000).toDouble(),
                 strokeWidth: 1,
                 fillColor: Color(0xff006491).withOpacity(0.2),
               );

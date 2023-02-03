@@ -90,9 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("내가 가는 길이"),
+                        Text("나만의 길로 떠나는"),
                         SizedBox(height: 10),
-                        Text("나만의 길로 떠나는 "),
+                        Text("산책하기 ! "),
                       ],
                     ),
                   ),
@@ -167,9 +167,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("다른 사람이 가는 길이"),
+                        Text("다른 사람이 추천하는"),
                         SizedBox(height: 10),
-                        Text("어쩌고 저쩌고 ~~~"),
+                        Text("경로로 산책하기 !"),
                       ],
                     ),
                   ),
