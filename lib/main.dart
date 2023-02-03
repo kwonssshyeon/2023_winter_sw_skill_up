@@ -93,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         Text("내가 가는 길이"),
                         SizedBox(height: 10),
-                        Text("어쩌고 저쩌고 ~~~"),
+                        Text("나만의 길로 떠나는 "),
                       ],
                     ),
                   ),
