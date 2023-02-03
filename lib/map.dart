@@ -6,7 +6,8 @@ import 'package:winter_skillup_hackathon/mywalk_list.dart';
 import 'package:location/location.dart';
 
 class MapSample extends StatefulWidget {
-  const MapSample({Key? key}) : super(key: key);
+  final int radiusSize;
+  MapSample(@required this.radiusSize);
 
   @override
   _MapSample createState() => _MapSample();
@@ -31,6 +32,7 @@ class _MapSample extends State<MapSample> {
     ),
   ];
 
+
   // created method for getting user current location
   Future<Position> getUserCurrentLocation() async {
     await Geolocator.requestPermission().then((value){
@@ -43,6 +45,8 @@ class _MapSample extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
+
+    int radiusSize = widget.radiusSize;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffD0FB8B),
@@ -67,6 +71,18 @@ class _MapSample extends State<MapSample> {
             onMapCreated: (GoogleMapController controller){
               _controller.complete(controller);
             },
+
+            onTap: (cordinate) {
+              _markers.add(
+                  Marker(
+                    markerId: MarkerId("2"),
+                    position: LatLng(cordinate.latitude, cordinate.longitude),
+                    infoWindow: InfoWindow(
+                      title: '도착',
+                    ),
+                  )
+              );
+            },
           ),
         ),
       ),
@@ -79,7 +95,7 @@ class _MapSample extends State<MapSample> {
             // marker added for current users location
             _markers.add(
                 Marker(
-                  markerId: MarkerId("2"),
+                  markerId: MarkerId("1"),
                   position: LatLng(value.latitude, value.longitude),
                   infoWindow: InfoWindow(
                     title: 'My Current Location',
@@ -87,10 +103,20 @@ class _MapSample extends State<MapSample> {
                 )
             );
 
+            circles: {
+              Circle(
+                circleId: CircleId("1"),
+                center: LatLng(value.latitude, value.longitude),
+                radius: (radiusSize*10000).toDouble(),
+                strokeWidth: 1,
+                fillColor: Color(0xff006491).withOpacity(0.2),
+              );
+            };
+
             // specified current users location
             CameraPosition cameraPosition = new CameraPosition(
               target: LatLng(value.latitude, value.longitude),
-              zoom: 14,
+              zoom: 10,
             );
 
             final GoogleMapController controller = await _controller.future;
@@ -104,4 +130,3 @@ class _MapSample extends State<MapSample> {
     );
   }
 }
-
