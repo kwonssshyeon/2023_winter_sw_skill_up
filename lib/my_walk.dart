@@ -20,6 +20,7 @@ class _MyWalkPageState extends State<MyWalkPage> {
             child: Column(
               children: [
                 Card(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.0)),
                   margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: ListTile(
                     leading: Image.asset('images/map_.png'),
