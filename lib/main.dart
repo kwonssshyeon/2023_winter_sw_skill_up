@@ -20,7 +20,12 @@ class MyApp extends StatelessWidget {
   }
 }
 
-const List<String> list = <String>['10분','15분','20분','25분'];
+class RadiusSize{
+  int radius = 10;
+  RadiusSize(this.radius);
+}
+
+const List<String> list = <String>['10분','15분','20분','25분','30분'];
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -31,6 +36,20 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String dropdownValue = list.first;
+  int radiusSize = 10;
+
+  void mappingRadius(){
+    if(dropdownValue=='10분'){
+      radiusSize = 10;}
+    else if(dropdownValue=='15분'){
+      radiusSize = 15;}
+    else if(dropdownValue=='20분'){
+      radiusSize = 20;}
+    else if(dropdownValue=='25분'){
+      radiusSize = 25;}
+    else if(dropdownValue=='30분'){
+      radiusSize = 30;}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,13 +128,20 @@ class _MyHomePageState extends State<MyHomePage> {
                             });
                           },
                         ),
+
+
+
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(backgroundColor: Colors.white),
                           onPressed: (){
+                            mappingRadius();
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context)=> MapSample()),
+                              MaterialPageRoute(builder: (context)=>
+                                  MapSample(radiusSize)),
                             );
+                            print("반지름 크기");
+                            print(radiusSize);
                           },
                           child: Text("지도 보기",
                             style: TextStyle(color: Colors.black),),
