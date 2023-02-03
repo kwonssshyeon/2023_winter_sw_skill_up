@@ -16,15 +16,15 @@ class _MapSample extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
   // on below line we have specified camera position
   static final CameraPosition _kGoogle = const CameraPosition(
-    target: LatLng(20.42796133580664, 80.885749655962),
-    zoom: 14.4746,
+    target: LatLng(35.888062217703045, 128.61150116523726),
+    zoom: 10,
   );
 
   // on below line we have created the list of markers
   final List<Marker> _markers = <Marker>[
     Marker(
         markerId: MarkerId('1'),
-        position: LatLng(20.42796133580664, 75.885749655962),
+        position: LatLng(35.888062217703045, 128.61150116523726),
         infoWindow: InfoWindow(
           title: 'My Position',
         )
@@ -45,9 +45,9 @@ class _MapSample extends State<MapSample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF0F9D58),
+        backgroundColor: Color(0xffD0FB8B),
         // on below line we have given title of app
-        title: Text("GFG"),
+        title: Text("지도"),
       ),
       body: Container(
         child: SafeArea(

@@ -26,19 +26,7 @@ class RecommendMapState extends State<RecommendMap> {
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
-        polylines: ,
       ),
-
-
-
-      // floatingActionButton을 누르게 되면 _goToTheLake 실행된다.
-      floatingActionButton: Row(
-        children: [
-
-        ],
-      ),
-
-
 
     );
   }
